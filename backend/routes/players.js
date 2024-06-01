@@ -15,6 +15,74 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.get('/listed_players/:fixture_id', async (req, res) => {
+  const { fixture_id } = req.params;
+  try {
+    const selectQuery = `
+      SELECT listed_players.*, players.name AS player_name, clubs.name AS club_name
+      FROM listed_players
+      JOIN players ON listed_players.player_id = players.id
+      JOIN clubs ON listed_players.club_id = clubs.id
+      WHERE listed_players.fixture_id = $1
+      ORDER BY listed_players.id
+    `;
+    const { rows } = await pool.query(selectQuery, [fixture_id]);
+
+    // Send the fetched data as a response
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching listed players:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+router.post('/listed_players', async (req, res) => {
+  const { club_id, fixture_id, player_id } = req.body; // Adjust fields as per your schema
+  try {
+    const insertQuery = `
+      INSERT INTO listed_players (club_id, fixture_id, player_id)
+      VALUES ($1, $2, $3)
+    `;
+    await pool.query(insertQuery, [club_id, fixture_id, player_id]);
+
+    res.status(201).json({ message: 'Data inserted successfully' });
+  } catch (error) {
+    console.error('Error inserting data into listed_players:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+// Get players not used in the starting lineup for a specific club and fixture
+router.get('/unusedInStartingLineup/:clubId/:fixtureId', async (req, res) => {
+  const { clubId, fixtureId } = req.params;
+  try {
+    const result = await pool.query(`
+      SELECT p.id, p.name, p.position 
+      FROM players p 
+      LEFT JOIN starting_lineup sl ON p.id = sl.player_id AND sl.fixture_id = $1
+      WHERE sl.player_id IS NULL AND p.club_id = $2
+    `, [fixtureId, clubId]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching players not used in starting lineup for club and fixture:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Get players by club_id
+router.get('/club/:club_id', async (req, res) => {
+  const { club_id } = req.params;
+  try {
+    const result = await pool.query('SELECT * FROM players WHERE club_id = $1', [club_id]);
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching players by club_id:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Get a single player by ID
 router.get('/:id', async (req, res) => {
   const { id } = req.params;
@@ -57,6 +125,36 @@ router.put('/:id', async (req, res) => {
     res.status(200).json({ message: 'Player updated successfully' });
   } catch (error) {
     console.error('Error updating player:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Define a route to create the temporary table and fetch data from it
+router.get('/listed_players', async (req, res) => {
+  try {
+    // Create the temporary table listed_players
+    const createTableQuery = `
+      CREATE TEMP TABLE listed_players AS
+      (
+          SELECT * FROM starting_lineup
+      )
+      UNION ALL
+      (
+          SELECT * FROM bench
+      );
+    `;
+    await pool.query(createTableQuery);
+
+    // Fetch data from the temporary table
+    const selectQuery = `
+      SELECT * FROM listed_players;
+    `;
+    const { rows } = await pool.query(selectQuery);
+
+    // Send the fetched data as a response
+    res.json(rows);
+  } catch (error) {
+    console.error('Error fetching listed players:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

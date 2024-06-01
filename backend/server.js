@@ -9,6 +9,11 @@ import loginRoutes from './routes/login.js';
 import signupRoutes from './routes/signup.js';
 import transfersRoutes from './routes/transfers.js';
 import clubsRoutes from './routes/clubs.js'; // Import clubs routes
+import leaguesRoutes from './routes/leagues.js';
+import standingsRoutes from './routes/standings.js';
+import starterRoutes from './routes/starter.js';
+import benchRoutes from './routes/bench.js';
+import playerStatsRoutes from './routes/player_stats.js';
 
 config();
 
@@ -48,6 +53,11 @@ app.use('/api/login', providePool, loginRoutes);
 app.use('/api/signup', providePool, signupRoutes);
 app.use('/api/transfers', providePool, transfersRoutes);
 app.use('/api/clubs', providePool, clubsRoutes); // Use clubs routes
+app.use('/api/leagues', providePool, leaguesRoutes);
+app.use('/api/standings', providePool, standingsRoutes);
+app.use('/api/starter', providePool, starterRoutes);
+app.use('/api/bench', providePool, benchRoutes);
+app.use('/api/playerStats', providePool, playerStatsRoutes);
 
 // Start the server
 app.listen(PORT, () => {

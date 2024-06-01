@@ -17,18 +17,26 @@ CREATE TABLE matchweeks (
     week_number INT NOT NULL
 );
 
+
 CREATE TABLE starting_lineup (
     id SERIAL PRIMARY KEY,
+    club_id INT REFERENCES clubs(id),
     fixture_id INT REFERENCES fixtures(id),
-    player_id INT REFERENCES players(id),
-    player_rating NUMERIC(3, 1)
+    player_id INT REFERENCES players(id)
 );
 
 CREATE TABLE bench (
     id SERIAL PRIMARY KEY,
+    club_id INT REFERENCES clubs(id),
     fixture_id INT REFERENCES fixtures(id),
-    player_id INT REFERENCES players(id),
-    player_rating NUMERIC(3, 1)
+    player_id INT REFERENCES players(id)
+);
+
+CREATE TABLE listed_players (
+    id SERIAL PRIMARY KEY,
+    club_id INT REFERENCES clubs(id),
+    fixture_id INT REFERENCES fixtures(id),
+    player_id INT REFERENCES players(id)
 );
 
 
@@ -50,13 +58,13 @@ CREATE TABLE fixtures (
     id SERIAL PRIMARY KEY,
     home_club_id INT REFERENCES clubs(id),
     away_club_id INT REFERENCES clubs(id),
-    home_score INT,
-    away_score INT,
     league_id INT REFERENCES leagues(id),
     matchweek_id INT REFERENCES matchweeks(id),
-    match_date DATE,
-    referee_id INT REFERENCES referees(id)
+    referee_id INT REFERENCES referees(id),
+    home_score INT,
+    away_score INT
 );
+
 
 
 CREATE TABLE referees (
@@ -71,17 +79,8 @@ CREATE TABLE clubs (
     league_id INT REFERENCES leagues(id),
     name VARCHAR(100) NOT NULL UNIQUE,
     manager VARCHAR(100),
-    stadium VARCHAR(100)
 );
 
-
-CREATE TABLE fixture_stats (
-    PRIMARY KEY (stat_name),
-    fixture_id INT REFERENCES fixtures(id),
-    stat_name VARCHAR(100) NOT NULL,
-    home_value DECIMAL(10, 2),
-    away_value DECIMAL(10, 2)
-);
 
 CREATE TABLE players (
     id SERIAL PRIMARY KEY,
@@ -97,6 +96,37 @@ CREATE TABLE players (
     position VARCHAR(100)
 );
 
+CREATE TABLE player_stats (
+    id SERIAL PRIMARY KEY,
+    fixture_id INT REFERENCES fixtures(id),
+    club_id INT REFERENCES clubs(id),
+    player_id INT REFERENCES players(id),
+    shots INT,
+    shots_on_target INT,
+    passes INT,
+    goals INT,
+    assists INT,
+    tackles INT,
+    interceptions INT,
+    saves INT,
+    fouls_committed INT,
+    corners INT,
+    offsides INT,
+    yellow_cards INT,
+    red_cards INT,
+    ratings DECIMAL(3, 2) -- Column for player ratings
+);
+
+
+-- Create the goal_events table to store multiple goal entries
+CREATE TABLE goal_events (
+    id SERIAL PRIMARY KEY,
+    player_stats_id INT REFERENCES player_stats(id),
+    minute_of_goal INT
+);
+
+
+
 CREATE TABLE transfers (
     id SERIAL PRIMARY KEY,
     player_id INT REFERENCES players(id),
@@ -107,13 +137,6 @@ CREATE TABLE transfers (
 
 ALTER TABLE players
 ADD CONSTRAINT unique_name UNIQUE (name);
-
-CREATE TABLE player_stats (
-    PRIMARY KEY (stat_name),
-    club_id INT REFERENCES clubs(id),
-    stat_name VARCHAR(100) NOT NULL,
-    stats DECIMAL(10, 2)
-);
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -129,3 +152,7 @@ CREATE TABLE login_sessions (
     is_logged_in BOOLEAN DEFAULT FALSE,
     last_login TIMESTAMP
 );
+
+CREATE TABLE starting_lineup_backup AS TABLE starting_lineup;
+CREATE TABLE bench_backup AS TABLE bench;
+

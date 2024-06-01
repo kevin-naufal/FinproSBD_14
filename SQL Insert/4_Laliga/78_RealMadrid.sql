@@ -6,15 +6,15 @@ INSERT INTO players (name, club_id, height, shirt_number, age, date_of_birth, pr
 ('Diego Pineiro', 78, NULL, 26, 20, '2004-02-13', NULL, 'Spain', NULL, 'Keeper');
 
 INSERT INTO players (name, club_id, height, shirt_number, age, date_of_birth, preferred_foot, country, market_value, position) VALUES
-('David Alaba', 78, 180, 4, 31, '1992-06-24', 'Left', 'Austria', '€45M', 'Center-Back'),
-('Antonio Rüdiger', 78, 190, 22, 31, '1993-03-03', 'Right', 'Germany', '€39M', 'Center-Back'),
-('Lucas Vázquez', 78, 173, 17, 32, '1991-07-01', 'Right', 'Spain', '€10M', 'Right-Back'),
-('Francisco Garcia', 78, 169, 20, 24, '1999-08-14', 'Left', 'Spain', '€11M', 'Left-Back'),
+('David Alaba', 78, 180, 4, 31, '1992-06-24', 'Left', 'Austria', '45000000', 'Center-Back'),
+('Antonio Rudiger', 78, 190, 22, 31, '1993-03-03', 'Right', 'Germany', '39000000', 'Center-Back'),
+('Lucas Vázquez', 78, 173, 17, 32, '1991-07-01', 'Right', 'Spain', '10000000', 'Right-Back'),
+('Francisco Garcia', 78, 169, 20, 24, '1999-08-14', 'Left', 'Spain', '11000000', 'Left-Back'),
 ('Vinicius Tobias', 78, 175, 36, 20, '2004-02-23', 'Right', 'Brazil', NULL, 'Right-Back'),
-('Nacho Fernandez', 78, 180, 6, 34, '1990-01-18', 'Right', 'Spain', '€4.2M', 'Center-Back'),
-('Daniel Carvajal', 78, 173, 2, 32, '1992-01-11', 'Right', 'Spain', '€16M', 'Right-Back'),
-('Ferland Mendy', 78, 178, 23, 28, '1995-06-08', 'Left', 'France', '€22M', 'Left-Back'),
-('Éder Militao', 78, 186, 3, 26, '1998-01-18', 'Right', 'Brazil', '€80M', 'Center-Back'),
+('Nacho Fernandez', 78, 180, 6, 34, '1990-01-18', 'Right', 'Spain', '4200000', 'Center-Back'),
+('Daniel Carvajal', 78, 173, 2, 32, '1992-01-11', 'Right', 'Spain', '16000000', 'Right-Back'),
+('Ferland Mendy', 78, 178, 23, 28, '1995-06-08', 'Left', 'France', '22000000', 'Left-Back'),
+('Eder Militao', 78, 186, 3, 26, '1998-01-18', 'Right', 'Brazil', '80000000', 'Center-Back'),
 ('Jacobo Ramon', 78, NULL, 41, 19, '2005-01-06', NULL, 'Spain', NULL, 'Defender');
 
 INSERT INTO players (name, club_id, height, shirt_number, age, date_of_birth, preferred_foot, country, market_value, position) VALUES
