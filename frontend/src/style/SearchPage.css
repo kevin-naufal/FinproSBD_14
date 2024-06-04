@@ -1,0 +1,52 @@
+.search-results {
+    max-width: 800px; /* Adjust the max-width as needed */
+    margin: 0 auto; /* Center the container */
+  }
+  
+  .results-container {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .players-container {
+    background-color: #e3f2fd; /* Light blue background for players */
+  }
+  
+  .clubs-container {
+    background-color: #ffebee; /* Light red background for clubs */
+  }
+  
+  .search-results h1 {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+  
+  h1 {
+    font-size: 2em; /* Increased font size for h1 */
+  }
+  
+  h2 {
+    margin-top: 0;
+    font-size: 1.5em; /* Increased font size for h2 */
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    font-size: 18px;
+  }
+  
+  .results-container button {
+    text-decoration: none; /* Remove default underline */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    font-size: 22px; /* Adjust the font size as needed */
+    margin-bottom: 10px; /* Add margin at the bottom */
+  }
+  
+  .results-container button:hover {
+    text-decoration: underline; /* Apply underline effect on hover */
+  }
+  
+  

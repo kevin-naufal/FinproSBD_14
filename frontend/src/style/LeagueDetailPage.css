@@ -1,0 +1,32 @@
+/* Styling for the page title */
+.page-title {
+    font-size: 2.5rem; /* Increase font size for the page title */
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Styling for the standings container */
+  .standings-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Styling for the standings table */
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .standings-table th,
+  .standings-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .standings-table th {
+    background-color: #f2f2f2;
+  }
+  

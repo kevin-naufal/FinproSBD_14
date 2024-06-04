@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { PageContent } from '../Header'; // Import PageContent component
+import '../style/LeagueDetailPage.css'; // Import the CSS file for league detail page
 
 const LeagueDetailPage = () => {
   const [standings, setStandings] = useState([]);
@@ -22,19 +23,19 @@ const LeagueDetailPage = () => {
 
   return (
     <PageContent> {/* Wrap content with PageContent */}
-      <div>
-        <h1>League Standings</h1>
-        <table>
+      <div className="standings-container">
+        <h1 className="page-title">League Standings</h1>
+        <table className="standings-table">
           <thead>
             <tr>
               <th>Rank</th>
               <th>Club</th>
-              <th>Games Played</th>
-              <th>Wins</th>
-              <th>Losses</th>
-              <th>Draws</th>
-              <th>Goal Difference</th>
-              <th>Points</th>
+              <th>GP</th>
+              <th>W</th>
+              <th>L</th>
+              <th>D</th>
+              <th>GD</th>
+              <th>PTS</th>
             </tr>
           </thead>
           <tbody>

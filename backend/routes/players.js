@@ -4,6 +4,24 @@ import pool from '../db.js';
 
 const router = express.Router();
 
+router.get('/search', async (req, res) => {
+  const { term } = req.query;
+
+  try {
+    const selectQuery = `
+      SELECT * FROM players 
+      WHERE name ILIKE $1
+      ORDER BY market_value IS NULL, market_value DESC;
+    `;
+    const { rows } = await pool.query(selectQuery, [`%${term}%`]);
+
+    res.status(200).json(rows);
+  } catch (error) {
+    console.error('Error searching players:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Get all players
 router.get('/', async (req, res) => {
   try {
@@ -170,5 +188,7 @@ router.delete('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
 
 export default router;

@@ -58,7 +58,6 @@ app.use('/api/standings', providePool, standingsRoutes);
 app.use('/api/starter', providePool, starterRoutes);
 app.use('/api/bench', providePool, benchRoutes);
 app.use('/api/playerStats', providePool, playerStatsRoutes);
-
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

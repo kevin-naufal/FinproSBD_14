@@ -1,0 +1,24 @@
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .stats-table th,
+  .stats-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .stats-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .stats-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .stats-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  

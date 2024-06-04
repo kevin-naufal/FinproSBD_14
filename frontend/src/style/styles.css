@@ -1,0 +1,45 @@
+.fixture-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fixture-card:hover {
+  background-color: #f3f4f6; /* Change to grey color on hover */
+}
+
+
+.score-line {
+  display: flex;
+  justify-content: center;
+}
+
+.score {
+  margin: 0 5px;
+}
+
+.clubs {
+  display: flex;
+  justify-content: center; /* Center align the club names */
+  width: 100%;
+}
+
+.team-name {
+  margin: 0 5px; /* Add some margin between team name and score */
+  text-decoration: none; /* Remove underline by default */
+}
+
+.team-name:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+.league-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  font-size: inherit;
+}
+
+.league-button:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
