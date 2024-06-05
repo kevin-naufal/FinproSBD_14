@@ -26,7 +26,8 @@ router.get('/:id', async (req, res) => {
               c.id, 
               c.name, 
               c.manager, 
-              c.stadium, 
+              c.stadium,
+              c.league_id,
               l.name AS league_name, 
               l.country AS league_country
           FROM 
@@ -80,8 +81,8 @@ router.post('/', async (req, res) => {
   const { league_id, name, manager, stadium } = req.body;
   try {
     await pool.query(
-      'INSERT INTO clubs (league_id, name, manager, stadium) VALUES ($1, $2, $3, $4)',
-      [league_id, name, manager, stadium]
+      'INSERT INTO clubs (league_id, name, manager, stadium) VALUES ($1, $2, $3, $4) RETURNING *',
+      [league_id, name, manager]
     );
     res.status(201).json({ message: 'Club added successfully' });
   } catch (error) {

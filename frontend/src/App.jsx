@@ -33,6 +33,7 @@ const App = () => {
         <Route path="/admin/bench" element={<BenchAdminPage />} />
       </Routes>
     </BrowserRouter>
+    
   );
 };
 
