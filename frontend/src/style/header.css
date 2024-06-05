@@ -1,0 +1,30 @@
+/* header.css */
+
+/* Search bar container */
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Search input field */
+.search-input {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+  width: 200px; /* Adjust width as needed */
+  color: #000; /* Set the color to black */
+}
+
+/* Search label */
+.search-label {
+  color: #fff;
+  margin-right: 10px;
+}
+
+/* Search results list items */
+.search-results li {
+  color: #000; /* Set the color to black */
+  margin-left: 5px; /* Add a bit of gap */
+  text-align: left; /* Align text to the left */
+}

@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/LoginPage';
@@ -14,6 +13,9 @@ import FixtureAdminPage from './admin/FixtureAdminPage';
 import StarterAdminPage from './admin/StarterAdminPage';
 import PlayerStatsAdminPage from './admin/PlayerStatsAdminPage';
 import BenchAdminPage from './admin/BenchAdminPage';
+import FixtureDetailPage from './components/FixtureDetailPage';
+import SearchPage from './components/SearchPage';
+import FantasyFCpage from './components/FantasyFCpage';
 
 const App = () => {
   return (
@@ -21,12 +23,17 @@ const App = () => {
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/" element={<FixturesPage />} />
-        <Route path="/transfers" element={<TransferPage />} />
-        <Route path="/player/:id" element={<PlayerDetailPage />} />
-        <Route path="/club/:id" element={<ClubDetailPage />} />
-        <Route path="/leagues" element={<LeaguePage />} />
-        <Route path="/leagues/:league_id" element={<LeagueDetailPage />} />
+        {/* Routes with Header */}
+        <Route path="/" element={<WithHeader><FixturesPage /></WithHeader>} />
+        <Route path="/transfers" element={<WithHeader><TransferPage /></WithHeader>} />
+        <Route path="/player/:id" element={<WithHeader><PlayerDetailPage /></WithHeader>} />
+        <Route path="/club/:id" element={<WithHeader><ClubDetailPage /></WithHeader>} />
+        <Route path="/leagues" element={<WithHeader><LeaguePage /></WithHeader>} />
+        <Route path="/leagues/:league_id" element={<WithHeader><LeagueDetailPage /></WithHeader>} />
+        <Route path="/fixture/:fixture_id" element={<WithHeader><FixtureDetailPage /></WithHeader>} />
+        <Route path="/search" element={<WithHeader><SearchPage /></WithHeader>} />
+        <Route path="/fantasyfc" element={<WithHeader><FantasyFCpage /></WithHeader>} />
+        {/* Routes without Header */}
         <Route path="/admin/fixture" element={<FixtureAdminPage />} />
         <Route path="/admin/starter" element={<StarterAdminPage />} />
         <Route path="/admin/playerStats" element={<PlayerStatsAdminPage />} />
@@ -36,5 +43,13 @@ const App = () => {
     
   );
 };
+
+// Component to wrap routes with Header
+const WithHeader = ({ children }) => (
+  <>
+    <Header />
+    {children}
+  </>
+);
 
 export default App;

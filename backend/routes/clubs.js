@@ -4,6 +4,29 @@ import pool from '../db.js'; // Import pool from db.js
 
 const router = express.Router();
 
+// Get clubs by name
+router.get('/search', async (req, res) => {
+  const { term } = req.query;
+
+  try {
+    // Use ILIKE for case-insensitive search
+    const query = `
+      SELECT * FROM clubs
+      WHERE name ILIKE $1;
+    `;
+
+    const values = [`%${term}%`];
+    const result = await pool.query(query, values);
+
+    // Always return a 200 status code with the result, even if it's empty
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error searching clubs:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Get all clubs
 router.get('/', async (req, res) => {
   try {
@@ -90,6 +113,9 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+
+
 
 // Update an existing club
 router.put('/:id', async (req, res) => {
