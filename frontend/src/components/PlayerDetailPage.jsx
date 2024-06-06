@@ -45,17 +45,39 @@ const PlayerDetailPage = () => {
     <PageContent>
       <Container maxWidth="md">
       <Link to="/"> {/* Tambahkan Link */}
-          <Button variant="outlined" color="primary" style={{ marginBottom: '20px' }}>Kembali</Button> {/* Tambahkan tombol kembali */}
+      <Button
+  variant="outlined"
+  color="primary"
+  style={{
+    marginBottom: '20px',
+    backgroundColor: '#3f51b5', // warna sesuai dengan outline primary default
+    color: 'white',
+    borderColor: '#3f51b5', // outline color
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.backgroundColor = 'white';
+    e.currentTarget.style.color = '#3f51b5';
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.backgroundColor = '#3f51b5';
+    e.currentTarget.style.color = 'white';
+  }}
+>
+  Kembali
+</Button>
+
         </Link>
-        <Typography variant="h4" component="h2" className="player-name">
+        <Typography variant="h4" component="h2" className="player-detail">
           Player Details
         </Typography>
         <div className="player-details">
           <div className="player-image">
             <img src={`/images/${player.id}.jpg`} alt={player.name} />
+          
+           <p className='player-name'>{player.name}</p>
           </div>
           <div className="player-info">
-            <p><strong>Name:</strong> {player.name}</p>
+           
             <p><strong>Club:</strong> {player.club_id}</p>
             <p><strong>Height:</strong> {player.height}</p>
             <p><strong>Shirt Number:</strong> {player.shirt_number}</p>

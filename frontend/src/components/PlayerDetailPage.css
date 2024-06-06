@@ -1,4 +1,4 @@
-.player-name {
+.player-detail {
     margin-top: 50px;
     margin-bottom: 50px;
     text-align: center;
@@ -24,6 +24,13 @@
   .player-image {
     flex: 1;
     margin-right: 20px; /* Mengganti margin-left menjadi margin-right */
+    filter: drop-shadow(0 0 0.25rem rgb(24, 18, 19));
+  }
+
+  .player-name{
+    text-align: center;
+    font-size: 25px;
+
   }
   
   .player-image img {
