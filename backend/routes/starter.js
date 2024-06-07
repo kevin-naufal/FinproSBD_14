@@ -27,18 +27,31 @@ router.get('/fixture/:fixture_id', async (req, res) => {
 });
 
 // Create a new starting lineup
+// Create a new starting lineup
 router.post('/', async (req, res) => {
-  const { club_id, fixture_id, player_id } = req.body;
+  const { club_id, fixture_id, player_ids } = req.body;
   try {
-    const result = await pool.query(
-      'INSERT INTO starting_lineup (club_id, fixture_id, player_id) VALUES ($1, $2, $3) RETURNING *',
-      [club_id, fixture_id, player_id]
-    );
-    res.status(201).json(result.rows[0]);
+    const results = await Promise.all(player_ids.map(async (player_id) => {
+      const result = await pool.query(
+        'INSERT INTO starting_lineup (club_id, fixture_id, player_id) VALUES ($1, $2, $3) RETURNING *',
+        [club_id, fixture_id, player_id]
+      );
+      return result.rows[0];
+    }));
+
+    // Check if any rows were inserted
+    if (results.length === 0 || results.some(result => !result)) {
+      // If no rows were inserted or if any of the results are falsy (indicating an error), send an error response
+      res.status(400).json({ error: 'Failed to create starting lineup' });
+    } else {
+      // Otherwise, all inserts were successful, so send a success response
+      res.status(201).json(results);
+    }
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 export default router;

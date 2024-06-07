@@ -38,7 +38,45 @@ router.get('/:league_id', async (req, res) => {
   const { league_id } = req.params;
 
   try {
-    const result = await pool.query('SELECT * FROM standings_view WHERE league_id = $1', [league_id]);
+    const result = await pool.query(`
+      SELECT 
+    standings.id,
+    clubs.name AS club_name,
+    standings.league_id,
+    standings.rank,
+    standings.games_played,
+    standings.wins,
+    standings.losses,
+    standings.draws,
+    standings.goal_difference,
+    standings.points
+FROM 
+    standings
+JOIN 
+    clubs ON standings.club_id = clubs.id
+WHERE 
+    standings.league_id = $1
+ORDER BY 
+    standings.points DESC, standings.goal_difference DESC, clubs.name;
+    `, [league_id]);
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Standing not found' });
+    }
+    
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error getting standing:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+router.get('/club/:club_id', async (req, res) => {
+  const { club_id } = req.params;
+
+  try {
+    const result = await pool.query('SELECT * FROM standings WHERE club_id = $1', [club_id]);
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Standing not found' });
     }
@@ -51,25 +89,35 @@ router.get('/:league_id', async (req, res) => {
 
 
 // Update a standing by ID
-router.put('/:id', async (req, res) => {
-  const { id } = req.params;
+router.patch('/club/:club_id', async (req, res) => {
+  const { club_id } = req.params;
   const { rank, games_played, wins, losses, draws, goal_difference, points } = req.body;
 
   try {
     const result = await pool.query(
-      `UPDATE standings SET rank = $1, games_played = $2, wins = $3, losses = $4, draws = $5, goal_difference = $6, points = $7 
-       WHERE id = $8 RETURNING *`,
-      [rank, games_played, wins, losses, draws, goal_difference, points, id]
+      `UPDATE standings 
+       SET games_played = $1, 
+           wins = $2, 
+           losses = $3, 
+           draws = $4, 
+           goal_difference = $5, 
+           points = $6 
+       WHERE club_id = $7 
+       RETURNING *`,
+      [games_played, wins, losses, draws, goal_difference, points, club_id]
     );
+
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Standing not found' });
     }
+
     res.status(200).json(result.rows[0]);
   } catch (error) {
     console.error('Error updating standing:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 // Delete a standing by ID
 router.delete('/:id', async (req, res) => {

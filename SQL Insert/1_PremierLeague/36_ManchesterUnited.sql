@@ -13,7 +13,7 @@ INSERT INTO players (
     ('Luke Shaw', 36, 185, 23, 28, '1995-07-12', 'Left', 'England', '€43M', 'Left-Back'),
     ('Aaron Wan-Bissaka', 36, 183, 29, 26, '1997-11-26', 'Right', 'England', '€23M', 'Right-Back'),
     ('Tyrell Malacia', 36, 175, 12, 24, '1999-08-17', 'Left', 'Netherlands', '€25M', 'Left-Back'),
-    ('Raphaël Varane', 36, 191, 19, 31, '1993-04-25', 'Right', 'France', '€26M', 'Center-Back'),
+    ('Raphael Varane', 36, 191, 19, 31, '1993-04-25', 'Right', 'France', '26000000', 'Center-Back'),
     ('Victor Nilsson Lindelof', 36, 187, 2, 29, '1994-07-17', 'Right', 'Sweden', '€15M', 'Center-Back'),
     ('Diogo Dalot', 36, 183, 20, 25, '1999-03-18', 'Right', 'Portugal', '€45M', 'Right-Back'),
     ('Lisandro Martinez', 36, 178, 6, 26, '1998-01-18', 'Left', 'Argentina', '€55M', 'Center-Back'),

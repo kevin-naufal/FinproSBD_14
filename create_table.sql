@@ -1,11 +1,3 @@
-select * from fixtures;
-select * from leagues;
-select * from matchweeks;
-
-CREATE TYPE player_position AS ENUM (
-    'LW', 'LF', 'ST', 'CF', 'RW', 'RF', 'CAM', 'CM', 'RM', 'LM', 'CDM', 'LWB', 'LB', 'CB', 'RWB', 'RB', 'GK'
-);
-
 CREATE TABLE leagues (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -117,16 +109,6 @@ CREATE TABLE player_stats (
     ratings DECIMAL(3, 2) -- Column for player ratings
 );
 
-
--- Create the goal_events table to store multiple goal entries
-CREATE TABLE goal_events (
-    id SERIAL PRIMARY KEY,
-    player_stats_id INT REFERENCES player_stats(id),
-    minute_of_goal INT
-);
-
-
-
 CREATE TABLE transfers (
     id SERIAL PRIMARY KEY,
     player_id INT REFERENCES players(id),
@@ -134,9 +116,7 @@ CREATE TABLE transfers (
     joined_club INT REFERENCES clubs(id),
     fee INT
 );
-
-ALTER TABLE players
-ADD CONSTRAINT unique_name UNIQUE (name);
+CONSTRAINT unique_name UNIQUE (name);
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
@@ -152,7 +132,3 @@ CREATE TABLE login_sessions (
     is_logged_in BOOLEAN DEFAULT FALSE,
     last_login TIMESTAMP
 );
-
-CREATE TABLE starting_lineup_backup AS TABLE starting_lineup;
-CREATE TABLE bench_backup AS TABLE bench;
-

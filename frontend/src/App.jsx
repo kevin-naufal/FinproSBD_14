@@ -9,13 +9,16 @@ import ClubDetailPage from './components/ClubDetailPage';
 import LeaguePage from './components/LeaguePage';
 import { Header } from './Header'; // Import Header component
 import LeagueDetailPage from './components/LeagueDetailPage';
-import FixtureAdminPage from './admin/FixtureAdminPage';
+import CreateFixturePage from './admin/CreateFixturePage';
 import StarterAdminPage from './admin/StarterAdminPage';
 import PlayerStatsAdminPage from './admin/PlayerStatsAdminPage';
-import BenchAdminPage from './admin/BenchAdminPage';
 import FixtureDetailPage from './components/FixtureDetailPage';
 import SearchPage from './components/SearchPage';
 import FantasyFCpage from './components/FantasyFCpage';
+import HomeAdminPage from './admin/HomeAdminPage';
+import ClubAdminPage from './admin/ClubAdminPage';
+import PlayerAdminPage from './admin/PlayerAdminPage';
+import BenchAdminPage from './admin/BenchAdminPage';
 
 const App = () => {
   return (
@@ -34,10 +37,13 @@ const App = () => {
         <Route path="/search" element={<WithHeader><SearchPage /></WithHeader>} />
         <Route path="/fantasyfc" element={<WithHeader><FantasyFCpage /></WithHeader>} />
         {/* Routes without Header */}
-        <Route path="/admin/fixture" element={<FixtureAdminPage />} />
+        <Route path="/admin/fixture" element={<CreateFixturePage />} />
         <Route path="/admin/starter" element={<StarterAdminPage />} />
         <Route path="/admin/playerStats" element={<PlayerStatsAdminPage />} />
-        <Route path="/admin/bench" element={<BenchAdminPage />} />
+        <Route path="/admin/club" element={<ClubAdminPage />} />
+        <Route path="/admin/player" element={<PlayerAdminPage />} />
+        <Route path="/admin/bench/:fixture_id" element={<BenchAdminPage />} />
+        <Route path="/admin" element={<HomeAdminPage />} />
       </Routes>
     </BrowserRouter>
   );

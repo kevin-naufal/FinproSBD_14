@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function FixtureAdminPage() {
+function CreateFixturePage() {
   const [formData, setFormData] = useState({
     home_club_id: '',
     away_club_id: '',
     league_id: '',
-    matchweek_id: ''
+    matchweek_id: '',
+    referee_id: ''
   });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const [redirect, setRedirect] = useState(false);
-  const [redirectData, setRedirectData] = useState(null);
   const [leagues, setLeagues] = useState([]);
   const [homeClubs, setHomeClubs] = useState([]);
   const [awayClubs, setAwayClubs] = useState([]);
+  const [existingFixtureIds, setExistingFixtureIds] = useState([]); // New state for existing fixture IDs
+  const navigate = useNavigate(); // Initialize navigate
+
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -28,6 +30,19 @@ function FixtureAdminPage() {
       }
     };
     fetchLeagues();
+  }, []);
+
+  useEffect(() => {
+    const fetchExistingFixtureIds = async () => {
+      try {
+        const res = await axios.get('http://localhost:5000/api/fixtures');
+        setExistingFixtureIds(res.data.map(fixture => fixture.id));
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch existing fixture IDs');
+      }
+    };
+    fetchExistingFixtureIds();
   }, []);
 
   const handleChange = async (e) => {
@@ -53,15 +68,18 @@ function FixtureAdminPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const home_score = Math.floor(Math.random() * 11);
-      const away_score = Math.floor(Math.random() * 11);
-      const postData = { ...formData, home_score, away_score };
+      const randomRefId = Math.floor(Math.random() * 15) + 1;
+      const postData = { ...formData, home_score: null, away_score: null, referee_id: randomRefId };
+
+      // Log the content of postData
+      console.log('postData:', postData);
+
       const res = await axios.post('http://localhost:5000/api/fixtures', postData);
       setMessage('Fixture created successfully!');
       setError('');
       console.log(res.data);
-      setRedirectData({ home_club_id: formData.home_club_id, away_club_id: formData.away_club_id });
-      setRedirect(true);
+      navigate('/admin');
+
     } catch (err) {
       console.error(err);
       setError('Failed to create fixture');
@@ -69,9 +87,18 @@ function FixtureAdminPage() {
     }
   };
 
-  if (redirect) {
-    return <Navigate to="/admin/starter" state={redirectData} />;
-  }
+  const handleDelete = async (id) => {
+    try {
+      const res = await axios.delete(`http://localhost:5000/api/fixtures/${id}`);
+      setMessage(res.data.message);
+      setError('');
+      navigate('/admin');
+    } catch (err) {
+      console.error(err);
+      setError('Failed to delete fixture');
+      setMessage('');
+    }
+  };
 
   return (
     <div>
@@ -114,10 +141,25 @@ function FixtureAdminPage() {
         <br />
         <button type="submit">Create Fixture</button>
       </form>
+      {existingFixtureIds.length > 0 && (
+        <div>
+          <h2>Delete Fixture</h2>
+          <label>
+            Select Fixture ID to delete:
+            <select name="fixture_id_to_delete" value={formData.fixture_id_to_delete} onChange={(e) => setFormData({ ...formData, fixture_id_to_delete: e.target.value })}>
+              <option value="">Select Fixture ID</option>
+              {existingFixtureIds.map(id => (
+                <option key={id} value={id}>{id}</option>
+              ))}
+            </select>
+          </label>
+          <button onClick={() => handleDelete(formData.fixture_id_to_delete)}>Delete</button>
+        </div>
+        )}
       {message && <div style={{ color: 'green' }}>{message}</div>}
       {error && <div style={{ color: 'red' }}>{error}</div>}
     </div>
   );
 }
 
-export default FixtureAdminPage;
+export default CreateFixturePage;
