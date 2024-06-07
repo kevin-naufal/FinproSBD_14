@@ -1,0 +1,41 @@
+.player-detail {
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  .player-details {
+    display: flex;
+    background-color: #EDF1D6;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+  }
+  
+  .player-details p {
+    margin-bottom: 10px;
+  }
+  
+  .player-info {
+    flex: 1;
+  }
+  
+  .player-image {
+    flex: 1;
+    margin-right: 20px; /* Mengganti margin-left menjadi margin-right */
+    filter: drop-shadow(0 0 0.25rem rgb(24, 18, 19));
+  }
+
+  .player-name{
+    text-align: center;
+    font-size: 25px;
+
+  }
+  
+  .player-image img {
+    display: block;
+    margin: 0 auto 20px; /* Tengah dan beri jarak bawah */
+    max-width: 150px; /* Sesuaikan lebar gambar */
+  }
+  

@@ -46,6 +46,7 @@ const App = () => {
         <Route path="/admin" element={<HomeAdminPage />} />
       </Routes>
     </BrowserRouter>
+    
   );
 };
 
