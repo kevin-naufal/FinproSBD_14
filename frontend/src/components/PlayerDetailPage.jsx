@@ -65,18 +65,16 @@ const PlayerDetailPage = () => {
 >
   Kembali
 </Button>
-
         </Link>
-        <Typography variant="h4" component="h2" className="player-detail">
+        <Typography variant="h4" component="h2" className="player-detail ">
           Player Details
         </Typography>
-        <div className="player-details">
+        <div className="player-details border-2 border-black">
           <div className="player-image">
             <img src={`/images/${player.id}.jpg`} alt={player.name} />
-          
            <p className='player-name'>{player.name}</p>
           </div>
-          <div className="player-info">
+          <div className="player-info ">
            
             <p><strong>Club:</strong> {player.club_id}</p>
             <p><strong>Height:</strong> {player.height}</p>

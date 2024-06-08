@@ -42,7 +42,7 @@ const SearchPage = () => {
     <PageContent>
       <div className="search-results">
         <h1 className="search-results-header">Search Results for <strong>'{searchTerm}'</strong></h1>
-        <div className="results-container players-container">
+        <div className="results-container players-container border-2 border-black bg-[#609966]">
           <h2>Players</h2>
           <ul>
             {searchResults.players && searchResults.players.map(player => (
@@ -52,7 +52,7 @@ const SearchPage = () => {
             ))}
           </ul>
         </div>
-        <div className="results-container clubs-container">
+        <div className="results-container clubs-container border-2 border-black bg-[#9DC08B]">
           <h2>Clubs</h2>
           <ul>
             {searchResults.clubs && searchResults.clubs.map(club => (

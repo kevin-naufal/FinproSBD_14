@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, Box } from '@mui/material';
+import { PageContent } from '../Header';
+import './PlayerAdminPage.css';
 
 const PlayerAdminPage = () => {
   const [players, setPlayers] = useState([]);
@@ -46,74 +49,103 @@ const PlayerAdminPage = () => {
   };
 
   return (
-    <div>
-      <h1>Player Admin Page</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Club ID</th>
-            <th>Height</th>
-            <th>Shirt Number</th>
-            <th>Age</th>
-            <th>Date of Birth</th>
-            <th>Preferred Foot</th>
-            <th>Country</th>
-            <th>Position</th>
-            <th>Market Value</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {players.map((player) => (
-            <tr key={player.id}>
-              <td>{player.id}</td>
-              <td>{player.name}</td>
-              <td>{player.club_id}</td>
-              <td>{player.height}</td>
-              <td>{player.shirt_number}</td>
-              <td>{player.age}</td>
-              <td>{player.date_of_birth}</td>
-              <td>{player.preferred_foot}</td>
-              <td>{player.country}</td>
-              <td>{player.position}</td>
-              <td>{player.market_value}</td>
-              <td>
-                <button onClick={() => handleUpdateClick(player)}>Update</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <PageContent>
+      <Container maxWidth="lg" className='container'>
+        <Typography variant="h4" component="h1" className="admin-title">
+          Player Admin Page
+        </Typography>
+        <TableContainer component={Paper} className="admin-table border-2 border-black">
+          <Table>
+            <TableHead>
+              <TableRow className='bg-[#9DC08B]'>
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Club ID</TableCell>
+                <TableCell>Height</TableCell>
+                <TableCell>Shirt Number</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Date of Birth</TableCell>
+                <TableCell>Preferred Foot</TableCell>
+                <TableCell>Country</TableCell>
+                <TableCell>Position</TableCell>
+                <TableCell>Market Value</TableCell>
+                <TableCell>Actions</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {players.map((player) => (
+                <TableRow key={player.id} className='bg-[#EDF1D6]'>
+                  <TableCell>{player.id}</TableCell>
+                  <TableCell>{player.name}</TableCell>
+                  <TableCell>{player.club_id}</TableCell>
+                  <TableCell>{player.height}</TableCell>
+                  <TableCell>{player.shirt_number}</TableCell>
+                  <TableCell>{player.age}</TableCell>
+                  <TableCell>{player.date_of_birth}</TableCell>
+                  <TableCell>{player.preferred_foot}</TableCell>
+                  <TableCell>{player.country}</TableCell>
+                  <TableCell>{player.position}</TableCell>
+                  <TableCell>{player.market_value}</TableCell>
+                  <TableCell>
+                    <Button variant="contained" color="primary" onClick={() => handleUpdateClick(player)} onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = 'white';
+                        e.currentTarget.style.color = '#3f51b5';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = '#3f51b5';
+                        e.currentTarget.style.color = 'white';
+                      }}>
+                      Update
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
 
-      <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)}>
-        <h2>Update Player</h2>
-        <div>
-          <label>Field to update:</label>
-          <select
-            value={fieldToUpdate}
-            onChange={(e) => setFieldToUpdate(e.target.value)}
-          >
-            <option value="">Select field</option>
-            <option value="name">Name</option>
-            <option value="club_id">Club ID</option>
-            <option value="height">Height</option>
-            {/* Add options for the rest of the fields */}
-          </select>
-        </div>
-        <div>
-          <label>New value:</label>
-          <input
-            type="text"
-            value={newValue}
-            onChange={(e) => setNewValue(e.target.value)}
-          />
-        </div>
-        <button onClick={handleUpdatePlayer}>Save</button>
-        <button onClick={() => setShowModal(false)}>Cancel</button>
-      </Modal>
-    </div>
+        <Modal isOpen={showModal} onRequestClose={() => setShowModal(false)} className="modal bg-[#9DC08B]" overlayClassName="overlay">
+          <Typography variant="h5" component="h2">Update Player</Typography>
+          <Box className="modal-content bg-[#9DC08B]">
+            <div>
+              <label>Field to update:</label>
+              <select
+                value={fieldToUpdate}
+                onChange={(e) => setFieldToUpdate(e.target.value)}
+              >
+                <option value="">Select field</option>
+                <option value="name">Name</option>
+                <option value="club_id">Club ID</option>
+                <option value="height">Height</option>
+                <option value="shirt_number">Shirt Number</option>
+                <option value="age">Age</option>
+                <option value="date_of_birth">Date of Birth</option>
+                <option value="preferred_foot">Preferred Foot</option>
+                <option value="country">Country</option>
+                <option value="position">Position</option>
+                <option value="market_value">Market Value</option>
+              </select>
+            </div>
+            <div>
+              <label>New value:</label>
+              <input
+                type="text"
+                value={newValue}
+                onChange={(e) => setNewValue(e.target.value)}
+              />
+            </div>
+            <Box className="modal-buttons">
+              <Button variant="contained" color="primary" onClick={handleUpdatePlayer}>
+                Save
+              </Button>
+              <Button variant="contained" onClick={() => setShowModal(false)}>
+                Cancel
+              </Button>
+            </Box>
+          </Box>
+        </Modal>
+      </Container>
+    </PageContent>
   );
 };
 

@@ -1,0 +1,61 @@
+.page-content {
+    background-color: #EDF1D6;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.admin-title {
+    color: #EDF1D6;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: center;
+    margin-bottom: 30px;
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-table {
+    background-color: #EDF1D6;
+    margin-top: 20px;
+}
+
+.MuiTableCell-root {
+    color: #EDF1D6;
+}
+
+.modal {
+    background-color: #EDF1D6;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 10px;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: space-between;
+}

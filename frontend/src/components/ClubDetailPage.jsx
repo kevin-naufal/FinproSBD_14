@@ -50,33 +50,32 @@ const ClubDetailPage = () => {
       <Container maxWidth="md">
       <Link to="/"> {/* Tambahkan Link */}
       <Button
-  variant="outlined"
-  color="primary"
-  style={{
-    marginBottom: '20px',
-    backgroundColor: '#3f51b5', // warna sesuai dengan outline primary default
-    color: 'white',
-    borderColor: '#3f51b5', // outline color
-  }}
-  onMouseOver={(e) => {
-    e.currentTarget.style.backgroundColor = 'white';
-    e.currentTarget.style.color = '#3f51b5';
-  }}
-  onMouseOut={(e) => {
-    e.currentTarget.style.backgroundColor = '#3f51b5';
-    e.currentTarget.style.color = 'white';
-  }}
->
-  Kembali
-</Button>
-
+        variant="outlined"
+        color="primary"
+        style={{
+          marginBottom: '20px',
+          backgroundColor: '#3f51b5', // warna sesuai dengan outline primary default
+          color: 'white',
+          borderColor: '#3f51b5', // outline color
+        }}
+        onMouseOver={(e) => {
+          e.currentTarget.style.backgroundColor = 'white';
+          e.currentTarget.style.color = '#3f51b5';
+        }}
+        onMouseOut={(e) => {
+          e.currentTarget.style.backgroundColor = '#3f51b5';
+          e.currentTarget.style.color = 'white';
+        }}
+      >
+        Kembali
+      </Button>
         </Link>
         <Box textAlign="center" mb={2}>
           <Typography variant="h4" component="h2" className="club-name">
             {club.name}
           </Typography>
         </Box>
-        <Card className="club-card">
+        <Card className="club-card border-2 border-black">
           <CardContent>
             <Typography variant="body1">
               <strong>League:</strong> {club.league_name} - {club.league_country}
@@ -93,10 +92,10 @@ const ClubDetailPage = () => {
         <Typography variant="h5" component="h3" className="standings-title">
           Standings
         </Typography>
-        <TableContainer component={Paper} className="standings-table">
+        <TableContainer component={Paper} className="standings-table border-2 border-black">
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow className='bg-[#9DC08B]'>
                 <TableCell>Rank</TableCell>
                 <TableCell>Club</TableCell>
                 <TableCell>Games Played</TableCell>
@@ -109,7 +108,7 @@ const ClubDetailPage = () => {
             </TableHead>
             <TableBody>
               {standings.map((standing, index) => (
-                <TableRow key={index}>
+                <TableRow key={index} className='bg-[#EDF1D6]'>
                   <TableCell>{standing.rank}</TableCell>
                   <TableCell>{standing.club_name}</TableCell>
                   <TableCell>{standing.games_played}</TableCell>
