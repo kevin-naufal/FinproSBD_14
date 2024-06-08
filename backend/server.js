@@ -14,6 +14,7 @@ import standingsRoutes from './routes/standings.js';
 import starterRoutes from './routes/starter.js';
 import benchRoutes from './routes/bench.js';
 import playerStatsRoutes from './routes/player_stats.js';
+import fantasyfcRoutes from './routes/fantasyfc.js';
 
 config();
 
@@ -58,6 +59,7 @@ app.use('/api/standings', providePool, standingsRoutes);
 app.use('/api/starter', providePool, starterRoutes);
 app.use('/api/bench', providePool, benchRoutes);
 app.use('/api/playerStats', providePool, playerStatsRoutes);
+app.use('/api/fantasyfc', providePool, fantasyfcRoutes);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

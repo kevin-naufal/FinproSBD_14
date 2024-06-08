@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { PageContent } from '../Header';
 import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress } from '@mui/material';
-import './LeagueDetailPage.css';
+import '../style/LeagueDetailPage.css';
 
 const LeagueDetailPage = () => {
   const [standings, setStandings] = useState([]);

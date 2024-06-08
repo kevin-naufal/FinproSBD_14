@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom'; // Import Link
 import { PageContent } from '../Header';
 import { Container, Typography, CircularProgress, Box, Button } from '@mui/material'; // Import Button
-import './PlayerDetailPage.css'; // Import CSS file
+import '../style/PlayerDetailPage.css'; // Import CSS file
 
 const PlayerDetailPage = () => {
   const { id } = useParams();

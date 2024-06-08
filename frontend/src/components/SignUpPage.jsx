@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Container, Typography, Alert, Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Navigate } from 'react-router-dom';
-import './SignupPage.css'; // Import the CSS file for styling
+import '../style/SignupPage.css'; // Import the CSS file for styling
 
 const Signup = () => {
   const [username, setUsername] = useState('');
