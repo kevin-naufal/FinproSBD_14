@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { PageContent } from '../Header';
-import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress } from '@mui/material';
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress, Button } from '@mui/material';
 import './LeagueDetailPage.css';
 
 const LeagueDetailPage = () => {
@@ -38,10 +38,10 @@ const LeagueDetailPage = () => {
         <Typography variant="h4" component="h1" className="standings-title">
           League Standings
         </Typography>
-        <TableContainer component={Paper} className="standings-table">
+        <TableContainer component={Paper} className="standings-table border-2 border-black">
           <Table>
             <TableHead>
-              <TableRow>
+              <TableRow className='bg-[#9DC08B]'>
                 <TableCell>Rank</TableCell>
                 <TableCell>Club</TableCell>
                 <TableCell>Games Played</TableCell>
@@ -54,7 +54,7 @@ const LeagueDetailPage = () => {
             </TableHead>
             <TableBody>
               {standings.map((standing) => (
-                <TableRow key={standing.id}>
+                <TableRow key={standing.id} className='bg-[#EDF1D6]'>
                   <TableCell>{standing.rank}</TableCell>
                   <TableCell>{standing.club_name}</TableCell>
                   <TableCell>{standing.games_played}</TableCell>
@@ -68,6 +68,7 @@ const LeagueDetailPage = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        
       </Container>
     </PageContent>
   );

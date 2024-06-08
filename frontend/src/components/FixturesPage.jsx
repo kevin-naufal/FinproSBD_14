@@ -52,9 +52,9 @@ const FixturePage = () => {
 
   return (
     <PageContent>
-      <div className="container-wrapper flex flex-col justify-center items-center"> {/* Centered container */}
-        <div className="mb-8 p-6 border rounded-lg shadow-lg bg-white w-full max-w-4xl">
-          <label htmlFor="matchweek" className="block mb-2">Select Matchweek: </label>
+      <div className="container-wrapper flex flex-col justify-center items-center "> {/* Centered container */}
+        <div className="mb-8 p-6 border rounded-lg shadow-lg bg-white w-full max-w-4xl border-2 border-black bg-[#609966]">
+          <label htmlFor="matchweek" className="block mb-2 ">Select Matchweek: </label>
           <select
             id="matchweek"
             value={selectedMatchweek}
@@ -71,8 +71,8 @@ const FixturePage = () => {
   
         {/* Render grouped fixtures */}
         {Object.keys(groupedFixtures).map((leagueName, index) => (
-          <div key={index} className="mb-8 p-6 border rounded-lg shadow-lg bg-white w-full max-w-4xl">
-            <h3 className="text-2xl font-semibold mb-4 border-b pb-2">
+          <div key={index} className="mb-8 p-6 border rounded-lg shadow-lg bg-white w-full max-w-4xl border-2 border-black bg-[#9DC08B]">
+            <h3 className="text-2xl font-semibold mb-4 border-b pb-2 ">
               <button className="league-button" onClick={() => handleLeagueClick(groupedFixtures[leagueName][0].league_id)}>
                 {leagueName}
               </button>

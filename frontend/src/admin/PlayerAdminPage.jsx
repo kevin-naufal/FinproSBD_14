@@ -74,7 +74,7 @@ const PlayerAdminPage = () => {
             </TableHead>
             <TableBody>
               {players.map((player) => (
-                <TableRow key={player.id}>
+                <TableRow key={player.id} className='bg-[#EDF1D6]'>
                   <TableCell>{player.id}</TableCell>
                   <TableCell>{player.name}</TableCell>
                   <TableCell>{player.club_id}</TableCell>
@@ -88,13 +88,13 @@ const PlayerAdminPage = () => {
                   <TableCell>{player.market_value}</TableCell>
                   <TableCell>
                     <Button variant="contained" color="primary" onClick={() => handleUpdateClick(player)} onMouseOver={(e) => {
-    e.currentTarget.style.backgroundColor = 'white';
-    e.currentTarget.style.color = '#3f51b5';
-  }}
-  onMouseOut={(e) => {
-    e.currentTarget.style.backgroundColor = '#3f51b5';
-    e.currentTarget.style.color = 'white';
-  }}>
+                        e.currentTarget.style.backgroundColor = 'white';
+                        e.currentTarget.style.color = '#3f51b5';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = '#3f51b5';
+                        e.currentTarget.style.color = 'white';
+                      }}>
                       Update
                     </Button>
                   </TableCell>
