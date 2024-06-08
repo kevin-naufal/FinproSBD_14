@@ -43,9 +43,14 @@ const Header = () => {
   const handlePlayerClick = (playerId) => {
     navigate(`/player/${playerId}`);
   };
-  
+
   const handleClubClick = (clubId) => {
     navigate(`/club/${clubId}`);
+  };
+
+  // Function to handle FantasyFC button click
+  const handleFantasyFCClick = () => {
+    navigate('/fantasyfc');
   };
 
   useEffect(() => {
@@ -75,7 +80,7 @@ const Header = () => {
         if (searchQuery.length >= 3) {
           const playersResponse = await axios.get(`http://localhost:5000/api/players/search?term=${searchQuery}&limit=3`);
           const clubsResponse = await axios.get(`http://localhost:5000/api/clubs/search?term=${searchQuery}&limit=3`);
-          
+
           const players = playersResponse.data;
           const clubs = clubsResponse.data;
 
@@ -94,16 +99,12 @@ const Header = () => {
 
   return (
     <header style={{ position: 'fixed', top: 0, width: '100%', background: '#333', color: '#fff', padding: '30px 20px', textAlign: 'center', zIndex: 999, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-      <div>
-        <a href="/" style={{color: '#fff', cursor: 'pointer' }}>ScoreStatsFC</a>
+      <div style={{ display: 'flex', gap: '10px', }}>
+        <a href="/" style={{ color: '#fff', cursor: 'pointer' }}>ScoreStatsFC</a>
+        <button onClick={handleFantasyFCClick} style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontSize: '16px', paddingLeft: '40px' }}>
+          FantasyFC
+        </button>
       </div>
-      <nav>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          <li style={{ display: 'inline', margin: '0 10px' }}><a href="/">Home</a></li>
-          <li style={{ display: 'inline', margin: '0 10px' }}><a href="/about">About</a></li>
-          <li style={{ display: 'inline', margin: '0 10px' }}><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
       <form onSubmit={handleSearch} style={{ position: 'relative' }}>
         <input
           id="searchInput"
@@ -112,11 +113,11 @@ const Header = () => {
           value={searchQuery}
           onChange={(event) => setSearchQuery(event.target.value)}
           onKeyDown={handleSearch} // Listen for key down event
-          style={{ 
-            padding: '5px 10px', 
-            border: '1px solid #ccc', 
-            borderRadius: '5px', 
-            marginRight: '10px', 
+          style={{
+            padding: '5px 10px',
+            border: '1px solid #ccc',
+            borderRadius: '5px',
+            marginRight: '10px',
             width: '200px',
             color: '#000' // Set the color to black
           }}

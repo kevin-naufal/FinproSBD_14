@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import { PageContent } from '../Header';
 import { Container, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress, Button } from '@mui/material';
-import './ClubDetailPage.css';
+import '../style/ClubDetailPage.css';
 
 const ClubDetailPage = () => {
   const { id } = useParams();

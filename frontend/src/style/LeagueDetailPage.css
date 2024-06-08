@@ -1,32 +1,28 @@
-/* Styling for the page title */
-.page-title {
-    font-size: 2.5rem; /* Increase font size for the page title */
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  /* Styling for the standings container */
-  .standings-container {
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Styling for the standings table */
-  .standings-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .standings-table th,
-  .standings-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .standings-table th {
-    background-color: #f2f2f2;
-  }
-  
+.page-content {
+  background-color: #EDF1D6;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.standings-title {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+  margin-top: 50px; /* Tambahkan ruang antara judul dan atap page */
+  margin-bottom: 50px; /* Tambahkan juga ruang di bawah judul */
+  text-align: center;
+}
+
+
+.standings-table {
+  background-color: #EDF1D6;
+  margin-top: 20px;
+}
+
+.MuiTableCell-root {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+}
+
+/* Tambahkan ruang antara judul dan tabel */
+h1 {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+  margin-bottom: 20px;
+}

@@ -1,68 +1,27 @@
-/* ClubDetailPage.css */
+.page-content {
+  background-color: #EDF1D6;
+  min-height: 100vh;
+  padding: 20px;
+}
 
-/* Styling for the club detail container */
-.club-detail-container {
-    padding: 20px;
-  }
-  
-  /* Styling for the club name */
-  .club-name {
-    font-size: 2.5rem; /* Increase font size for the club name */
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  /* Styling for the league details */
-  .league-details {
-    margin-bottom: 10px;
-  }
-  
-  /* Styling for the standings container */
-  .standings-container {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  /* Styling for the standings table */
-  .standings-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .standings-table th,
-  .standings-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .standings-table th {
-    background-color: #f2f2f2;
-  }
-  
-  /* Styling for the players list */
-  .players-list {
-    margin-top: 20px;
-  }
-  
-  .player-group {
-    margin-bottom: 20px;
-  }
-  
-  .position-label {
-    font-size: 1.2rem; /* Increase font size for position labels */
-    margin-bottom: 10px;
-  }
-  
-  .player-names {
-    list-style-type: none;
-    padding-left: 0;
-  }
-  
-  .player-names li {
-    margin-bottom: 5px;
-  }
-  
+.club-card {
+  margin-bottom: 20px; /* Menambahkan ruang antara club card dan standings table */
+}
+
+.club-name {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+  margin-bottom: 10px;
+}
+
+.standings-title {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+  margin-top: 20px;
+}
+
+.standings-table {
+  background-color: #EDF1D6;
+}
+
+.MuiTableCell-root {
+  color: #EDF1D6; /* Ubah warna font untuk seragam dengan SignUpPage */
+}

@@ -2,8 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { PageContent } from '../Header';
+<<<<<<< HEAD
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress } from '@mui/material';
+import '../style/LeagueDetailPage.css';
+=======
 import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress, Button } from '@mui/material';
 import './LeagueDetailPage.css';
+>>>>>>> 9fd2c068986fab5ba2770c7159aba813607c55be
 
 const LeagueDetailPage = () => {
   const [standings, setStandings] = useState([]);

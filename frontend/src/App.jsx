@@ -14,11 +14,13 @@ import StarterAdminPage from './admin/StarterAdminPage';
 import PlayerStatsAdminPage from './admin/PlayerStatsAdminPage';
 import FixtureDetailPage from './components/FixtureDetailPage';
 import SearchPage from './components/SearchPage';
-import FantasyFCpage from './components/FantasyFCpage';
+import FantasyFC_SquadPage from './components/FantasyFC_SquadPage';
 import HomeAdminPage from './admin/HomeAdminPage';
 import ClubAdminPage from './admin/ClubAdminPage';
 import PlayerAdminPage from './admin/PlayerAdminPage';
 import BenchAdminPage from './admin/BenchAdminPage';
+import FantasyFC_ErrorPage from './components/FantasyFC_ErrorPage';
+import FantasyFC_OnGoingPage from './components/FantasyFC_OnGoingPage';
 
 const App = () => {
   return (
@@ -35,7 +37,9 @@ const App = () => {
         <Route path="/leagues/:league_id" element={<WithHeader><LeagueDetailPage /></WithHeader>} />
         <Route path="/fixture/:fixture_id" element={<WithHeader><FixtureDetailPage /></WithHeader>} />
         <Route path="/search" element={<WithHeader><SearchPage /></WithHeader>} />
-        <Route path="/fantasyfc" element={<WithHeader><FantasyFCpage /></WithHeader>} />
+        <Route path="/fantasyfc" element={<WithHeader><FantasyFC_SquadPage /></WithHeader>} />
+        <Route path="/fantasyfc/error" element={<WithHeader><FantasyFC_ErrorPage /></WithHeader>} />
+        <Route path="/fantasyfc/ongoing" element={<WithHeader><FantasyFC_OnGoingPage /></WithHeader>} />
         {/* Routes without Header */}
         <Route path="/admin/fixture" element={<CreateFixturePage />} />
         <Route path="/admin/starter" element={<StarterAdminPage />} />

@@ -62,7 +62,6 @@ const FixturePage = () => {
             className="border p-2 rounded shadow outline-none" // Added shadow class
             style={{ borderColor: '#ccc', width: '150px' }} // Added custom styles
           >
-            <option value="1">Matchweek 1</option>
             {[...Array(38).keys()].map((week) => (
               <option key={week + 1} value={week + 1}>Matchweek {week + 1}</option>
             ))}
@@ -89,19 +88,19 @@ const FixturePage = () => {
                     <span className="score">{fixture.home_score}</span>
                     <span className="dash">-</span>
                     <span className="score">{fixture.away_score}</span>
-                    </div>
-                      <div className="clubs">
-                        <span className="team-name" onClick={(event) => { event.stopPropagation(); }}>
-                          <Link to={`/club/${fixture.home_club_id}`}>
-                            {fixture.home_club_name}
-                          </Link>
-                        </span>
-                        <span className="team-name" onClick={(event) => { event.stopPropagation(); }}>
-                          <Link to={`/club/${fixture.away_club_id}`}>
-                            {fixture.away_club_name}
-                          </Link>
-                        </span>
-                    </div>
+                  </div>
+                  <div className="clubs">
+                    <span className="team-name" onClick={(event) => { event.stopPropagation(); }}>
+                      <Link to={`/club/${fixture.home_club_id}`}>
+                        {fixture.home_club_name}
+                      </Link>
+                    </span>
+                    <span className="team-name" onClick={(event) => { event.stopPropagation(); }}>
+                      <Link to={`/club/${fixture.away_club_id}`}>
+                        {fixture.away_club_name}
+                      </Link>
+                    </span>
+                  </div>
                 </Link>
               ))}
             </div>

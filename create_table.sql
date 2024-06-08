@@ -132,3 +132,9 @@ CREATE TABLE login_sessions (
     is_logged_in BOOLEAN DEFAULT FALSE,
     last_login TIMESTAMP
 );
+
+CREATE TABLE fantasyfc (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    player_id INT REFERENCES players(id)
+);

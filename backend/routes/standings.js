@@ -39,26 +39,40 @@ router.get('/:league_id', async (req, res) => {
 
   try {
     const result = await pool.query(`
-      SELECT 
-    standings.id,
-    clubs.name AS club_name,
-    standings.league_id,
-    standings.rank,
-    standings.games_played,
-    standings.wins,
-    standings.losses,
-    standings.draws,
-    standings.goal_difference,
-    standings.points
-FROM 
-    standings
-JOIN 
-    clubs ON standings.club_id = clubs.id
-WHERE 
-    standings.league_id = $1
-ORDER BY 
-    standings.points DESC, standings.goal_difference DESC, clubs.name;
-    `, [league_id]);
+      WITH RankedStandings AS (
+              SELECT 
+                  standings.id,
+                  clubs.name AS club_name,
+                  standings.league_id,
+                  ROW_NUMBER() OVER (ORDER BY standings.points DESC, standings.goal_difference DESC, clubs.name) AS rank,
+                  standings.games_played,
+                  standings.wins,
+                  standings.losses,
+                  standings.draws,
+                  standings.goal_difference,
+                  standings.points
+              FROM 
+                  standings
+              JOIN 
+                  clubs ON standings.club_id = clubs.id
+              WHERE 
+                  standings.league_id = $1
+              ORDER BY 
+                  standings.points DESC, standings.goal_difference DESC, clubs.name
+          )
+          SELECT 
+              id,
+              club_name,
+              league_id,
+              rank,
+              games_played,
+              wins,
+              losses,
+              draws,
+              goal_difference,
+              points
+          FROM 
+              RankedStandings;`, [league_id]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ error: 'Standing not found' });
