@@ -47,7 +47,7 @@ const Signup = () => {
       <Typography variant="h3" component="h2" gutterBottom>
         ScoreStatsFC
       </Typography>
-      <Container maxWidth="sm" className="signup-container">
+      <Container maxWidth="sm" className="signup-container  border-2 border-black bg-[#EDF1D6]">
         <Box my={4}>
           <Typography variant="h4" component="h1" gutterBottom>
             Signup

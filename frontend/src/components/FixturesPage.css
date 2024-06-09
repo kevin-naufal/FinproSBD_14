@@ -1,0 +1,66 @@
+.fixture-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.3s ease;
+}
+
+.fixture-card:hover {
+  background-color: #f0f0f0;
+}
+
+.score-line {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.score {
+  margin: 0 0.5rem;
+}
+
+.dash {
+  margin: 0 0.5rem;
+  color: #555;
+}
+
+.clubs {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+}
+
+.team-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.team-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.team-name a:hover {
+  color: #609966;
+}
+
+.club-name-hover a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.club-name-hover a:hover {
+  color: #609966; /* Light green background on hover */
+}
