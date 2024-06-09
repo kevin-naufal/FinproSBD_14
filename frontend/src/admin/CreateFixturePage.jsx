@@ -16,8 +16,21 @@ function CreateFixturePage() {
   const [homeClubs, setHomeClubs] = useState([]);
   const [awayClubs, setAwayClubs] = useState([]);
   const [existingFixtureIds, setExistingFixtureIds] = useState([]); // New state for existing fixture IDs
+  const [latestMatchweek, setLatestMatchweek] = useState(null); // State to store the latest matchweek ID
   const navigate = useNavigate(); // Initialize navigate
 
+  useEffect(() => {
+    const fetchLatestMatchweek = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/matchweeks/latest-matchweek');
+        setLatestMatchweek(response.data.maxMatchweek);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to fetch latest matchweek');
+      }
+    };
+    fetchLatestMatchweek();
+  }, []);
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -70,22 +83,27 @@ function CreateFixturePage() {
     try {
       const randomRefId = Math.floor(Math.random() * 15) + 1;
       const postData = { ...formData, home_score: null, away_score: null, referee_id: randomRefId };
-
+  
       // Log the content of postData
       console.log('postData:', postData);
-
+  
       const res = await axios.post('http://localhost:5000/api/fixtures', postData);
       setMessage('Fixture created successfully!');
       setError('');
-      console.log(res.data);
+
+      console.log(latestMatchweek);
+      console.log(formData.matchweek_id)
+
       navigate('/admin');
 
+  
     } catch (err) {
       console.error(err);
       setError('Failed to create fixture');
       setMessage('');
     }
   };
+  
 
   const handleDelete = async (id) => {
     try {

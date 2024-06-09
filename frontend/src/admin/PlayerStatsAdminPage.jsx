@@ -100,16 +100,9 @@ function PlayerStatsAdminPage() {
       setMessage('Player stats added successfully');
 
       const updatedStatsRes = await axios.get(`http://localhost:5000/api/playerStats/fixture/${selectedFixture}/stats`);
-console.log(updatedStatsRes); // Log updatedStatsRes to the console
+      console.log(updatedStatsRes); // Log updatedStatsRes to the console
 
-const club1goals = updatedStatsRes.data[0].total_goals;
-const club2goals = updatedStatsRes.data[1].total_goals;
-const club1id = updatedStatsRes.data[0].club_id;
-const club2id = updatedStatsRes.data[1].club_id;
-console.log(club1goals);
-console.log(club2goals);
-let homeGoals = 0;
-let awayGoals = 0;
+      
 
 try {
   const fixturesRes = await axios.get(`http://localhost:5000/api/fixtures/${selectedFixture}`);
@@ -192,6 +185,20 @@ try {
   });
 
   console.log('Successfully patched standings for away club');
+
+  // Check if either home_club_id or away_club_id exist in the fetched data
+  const playerDatabaseRes = await axios.get('http://localhost:5000/api/fantasyfc/playerdatabase');
+  const { player_data } = playerDatabaseRes.data;
+
+  const homeClubIdExist = player_data.some(data => data.home_club_id);
+  const awayClubIdExist = player_data.some(data => data.away_club_id);
+
+  if (homeClubIdExist || awayClubIdExist) {
+    console.log("exist");
+  } else {
+    console.log("doesn't exist");
+  }
+
 } catch (error) {
   console.error('Error:', error);
 }

@@ -124,6 +124,7 @@ CREATE TABLE users (
     email VARCHAR(100) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    points INT
 );
 
 CREATE TABLE login_sessions (
@@ -135,6 +136,6 @@ CREATE TABLE login_sessions (
 
 CREATE TABLE fantasyfc (
     id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
-    player_id INT REFERENCES players(id)
+    user_id INT REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
+    player_id INT REFERENCES players(id) NOT NULL
 );

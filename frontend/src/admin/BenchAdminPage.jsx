@@ -96,12 +96,17 @@ function BenchAdminPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log(selectedHomePlayers);
+    console.log(selectedAwayPlayers);
+
     try {
       if (selectedHomePlayers.length !== 9 || selectedAwayPlayers.length !== 9) {
         setError('Exactly 9 players should be selected for the bench');
         setMessage('');
         return;
       }
+
+      console.log(latestFixtureId);
 
       // Call the delete API
       await axios.delete(`http://localhost:5000/api/players/listed_players/bench/${latestFixtureId}`);

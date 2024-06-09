@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     }
   });
 
-  router.get('/max-matchweek', async (req, res) => {
+  router.get('/latest-matchweek', async (req, res) => {
     try {
       const result = await pool.query('SELECT MAX(matchweek_id) AS max_matchweek FROM fixtures');
       const maxMatchweek = result.rows[0].max_matchweek;

@@ -13,8 +13,8 @@ router.post('/', async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Insert the new user into the database
-    await pool.query('INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3)', [username, email, hashedPassword]);
+    // Insert the new user into the database with default points value
+    await pool.query('INSERT INTO users (username, email, password_hash, points) VALUES ($1, $2, $3, $4)', [username, email, hashedPassword, 200]);
 
     // Return success message
     res.status(201).json({ message: 'User created successfully' });
@@ -23,5 +23,6 @@ router.post('/', async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 export default router;

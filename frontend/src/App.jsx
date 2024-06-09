@@ -20,7 +20,6 @@ import ClubAdminPage from './admin/ClubAdminPage';
 import PlayerAdminPage from './admin/PlayerAdminPage';
 import BenchAdminPage from './admin/BenchAdminPage';
 import FantasyFC_ErrorPage from './components/FantasyFC_ErrorPage';
-import FantasyFC_OnGoingPage from './components/FantasyFC_OnGoingPage';
 
 const App = () => {
   return (
@@ -39,7 +38,6 @@ const App = () => {
         <Route path="/search" element={<WithHeader><SearchPage /></WithHeader>} />
         <Route path="/fantasyfc" element={<WithHeader><FantasyFC_SquadPage /></WithHeader>} />
         <Route path="/fantasyfc/error" element={<WithHeader><FantasyFC_ErrorPage /></WithHeader>} />
-        <Route path="/fantasyfc/ongoing" element={<WithHeader><FantasyFC_OnGoingPage /></WithHeader>} />
         {/* Routes without Header */}
         <Route path="/admin/fixture" element={<CreateFixturePage />} />
         <Route path="/admin/starter" element={<StarterAdminPage />} />

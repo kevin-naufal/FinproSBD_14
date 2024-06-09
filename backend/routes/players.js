@@ -93,25 +93,36 @@ router.get('/listed_players/starter/:fixture_id', async (req, res) => {
 
 router.get('/listed_players/bench/:fixture_id', async (req, res) => {
   const { fixture_id } = req.params;
-  
-  try {
-    // Fetch players not in the starting lineup for a specific fixture and club
-    const result = await pool.query(`
-    SELECT listed_players.*, players.name AS player_name, clubs.name AS club_name, players.position AS player_position
-    FROM listed_players
-    JOIN players ON listed_players.player_id = players.id
-    JOIN clubs ON listed_players.club_id = clubs.id
-    WHERE listed_players.fixture_id = $1
-    ORDER BY listed_players.id
-    LIMIT 18;
-    `, [fixture_id]);
 
-    res.status(200).json(result.rows);
+  try {
+    // Fetch total rows count for a specific fixture and club
+    const rowCountResult = await pool.query('SELECT COUNT(*) FROM listed_players WHERE fixture_id = $1', [fixture_id]);
+    const totalRows = parseInt(rowCountResult.rows[0].count);
+
+    // Check if total rows is not equal to 22
+    if (totalRows != 22) {
+      // Fetch players not in the starting lineup for a specific fixture and club
+      const result = await pool.query(`
+        SELECT listed_players.*, players.name AS player_name, clubs.name AS club_name, players.position AS player_position
+        FROM listed_players
+        JOIN players ON listed_players.player_id = players.id
+        JOIN clubs ON listed_players.club_id = clubs.id
+        WHERE listed_players.fixture_id = $1
+        ORDER BY listed_players.id
+        LIMIT 18;
+      `, [fixture_id]);
+
+      res.status(200).json(result.rows);
+    } else {
+      // Total rows is equal to 22, so do not perform the get query
+      res.status(200).json({ message: "Total rows is equal to 22. No further action required." });
+    }
   } catch (error) {
     console.error('Error fetching bench players:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 // DELETE route to remove the 22 listed players for a fixture
@@ -167,18 +178,22 @@ router.delete('/listed_players/bench/:fixture_id', async (req, res) => {
 
       // Send the deleted data as a response
       res.json({ message: 'Deleted 18 players', data: rows });
-    } else if (total_rows === 22) {
+    } else if (total_rows == 22) {
       // If total rows is 22, do nothing
       res.json({ message: 'No players deleted. Total rows is 22' });
+    } else if (total_rows == 0) {
+      // If total rows is 0, do nothing
+      res.json({ message: 'No players to delete. Total rows is 0' });
     } else {
-      // If total rows is neither 40 nor 22, return an error
-      res.status(400).json({ error: 'Invalid total row count. Expected 40 or 22' });
+      // If total rows is neither 40 nor 22 nor 0, return an error
+      res.status(400).json({ error: 'Invalid total row count. Expected 40, 22, or 0' });
     }
   } catch (error) {
     console.error('Error deleting listed players:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 
 
