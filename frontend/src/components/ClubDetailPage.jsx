@@ -16,9 +16,9 @@ const ClubDetailPage = () => {
     const fetchClubAndStandings = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/clubs/${id}`);
-        const { club, standings } = response.data;
-        setClub(club);
-        setStandings(standings);
+        console.log(response.data);
+        setClub(response.data.club);
+        setStandings(response.data.standings);
         setLoading(false); // Data loaded, set loading to false
       } catch (error) {
         setError('Error fetching club and standings');
@@ -111,7 +111,7 @@ const ClubDetailPage = () => {
                 <TableRow key={index} className='bg-[#EDF1D6]'>
                   <TableCell>{standing.rank}</TableCell>
                   <TableCell>
-                  <Link to={`/clubs/${standing.club_id}`}>
+                  <Link to={`/club/${standing.club_id}`}>
                       {standing.club_name}
                     </Link>
                   </TableCell>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Typography, Alert, Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import '../style/SignupPage.css'; // Import the CSS file for styling
 
 const Signup = () => {
@@ -14,6 +14,7 @@ const Signup = () => {
   const [error, setError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,6 +37,10 @@ const Signup = () => {
 
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
   if (redirect) {
@@ -113,7 +118,7 @@ const Signup = () => {
                 }}
               />
             </div>
-            <button className="submit-button" type="submit" style={{ backgroundColor: '#609966' }}>
+            <button className="submit-button" type="submit" style={{ backgroundColor: '#609966' }} onClick={handleLoginClick}>
               Signup
             </button>
           </form>
