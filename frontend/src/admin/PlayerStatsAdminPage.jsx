@@ -9,6 +9,8 @@ function PlayerStatsAdminPage() {
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({});
   const [message, setMessage] = useState(null);
+  const [homeClubStats, setHomeClubStats] = useState(null);
+  const [awayClubStats, setAwayClubStats] = useState(null);
   const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
@@ -99,9 +101,6 @@ function PlayerStatsAdminPage() {
       await Promise.all(postRequests);
       setMessage('Player stats added successfully');
 
-      const updatedStatsRes = await axios.get(`http://localhost:5000/api/playerStats/fixture/${selectedFixture}/stats`);
-      console.log(updatedStatsRes); // Log updatedStatsRes to the console
-
       
 
 try {
@@ -111,6 +110,16 @@ try {
   console.log('Home Club ID:', home_club_id);
   console.log('Away Club ID:', away_club_id);
   console.log('League ID:', league_id);
+
+  const homeclubstatsRes = await axios.get(`http://localhost:5000/api/playerStats/fixture/${selectedFixture}/stats/${home_club_id}`);
+  const awayclubstatsRes = await axios.get(`http://localhost:5000/api/playerStats/fixture/${selectedFixture}/stats/${away_club_id}`);
+
+  const homeClubStats = homeclubstatsRes.data[0];
+  const awayClubStats = awayclubstatsRes.data[0];
+
+  setHomeClubStats(homeClubStats);
+  setAwayClubStats(awayClubStats);
+  
 
   let games_played_home, wins_home, losses_home, draws_home, goal_difference_home, points_home;
   const HomestandingsRes = await axios.get(`http://localhost:5000/api/standings/club/${home_club_id}`);
@@ -165,11 +174,11 @@ try {
   // Patch request for home club
   await axios.patch(`http://localhost:5000/api/standings/club/${home_club_id}`, {
     games_played: games_played_home + 1,
-    wins: homeGoals > awayGoals ? wins_home + 1 : wins_home,
-    losses: homeGoals < awayGoals ? losses_home + 1 : losses_home,
-    draws: homeGoals === awayGoals ? draws_home + 1 : draws_home,
-    goal_difference: homeGoals - awayGoals,
-    points: homeGoals > awayGoals ? points_home + 3 : homeGoals === awayGoals ? points_home + 1 : points_home,
+    wins: homeClubStats.total_goals > awayClubStats.total_goals ? wins_home + 1 : wins_home,
+    losses: homeClubStats.total_goals < awayClubStats.total_goals ? losses_home + 1 : losses_home,
+    draws: homeClubStats.total_goals === awayClubStats.total_goals ? draws_home + 1 : draws_home,
+    goal_difference: homeClubStats.total_goals - awayClubStats.total_goals,
+    points: homeClubStats.total_goals > awayClubStats.total_goals ? points_home + 3 : homeClubStats.total_goals === awayClubStats.total_goals ? points_home + 1 : points_home,
   });
 
   console.log('Successfully patched standings for home club');
@@ -177,34 +186,18 @@ try {
   // Patch request for away club
   await axios.patch(`http://localhost:5000/api/standings/club/${away_club_id}`, {
     games_played: games_played_away + 1,
-    wins: awayGoals > homeGoals ? wins_away + 1 : wins_away,
-    losses: awayGoals < homeGoals ? losses_away + 1 : losses_away,
-    draws: awayGoals === homeGoals ? draws_away + 1 : draws_away,
-    goal_difference: awayGoals - homeGoals,
-    points: awayGoals > homeGoals ? points_away + 3 : awayGoals === homeGoals ? points_away + 1 : points_away,
+    wins: awayClubStats.total_goals > homeClubStats.total_goals ? wins_away + 1 : wins_away,
+    losses: awayClubStats.total_goals < homeClubStats.total_goals ? losses_away + 1 : losses_away,
+    draws: awayClubStats.total_goals === homeClubStats.total_goals ? draws_away + 1 : draws_away,
+    goal_difference: awayClubStats.total_goals - homeClubStats.total_goals,
+    points: awayClubStats.total_goals > homeClubStats.total_goals ? points_away + 3 : awayClubStats.total_goals === homeClubStats.total_goals ? points_away + 1 : points_away,
   });
 
   console.log('Successfully patched standings for away club');
 
-  // Check if either home_club_id or away_club_id exist in the fetched data
-  const playerDatabaseRes = await axios.get('http://localhost:5000/api/fantasyfc/playerdatabase');
-  const { player_data } = playerDatabaseRes.data;
-
-  const homeClubIdExist = player_data.some(data => data.home_club_id);
-  const awayClubIdExist = player_data.some(data => data.away_club_id);
-
-  if (homeClubIdExist || awayClubIdExist) {
-    console.log("exist");
-  } else {
-    console.log("doesn't exist");
-  }
-
 } catch (error) {
   console.error('Error:', error);
 }
-
-
-
 
     } catch (error) {
       setMessage('Error adding player stats');
