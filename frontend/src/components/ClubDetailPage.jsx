@@ -16,7 +16,7 @@ const ClubDetailPage = () => {
     const fetchClubAndStandings = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/api/clubs/${id}`);
-        console.log(response.data);
+        console.log(response.data.standings);
         setClub(response.data.club);
         setStandings(response.data.standings);
         setLoading(false); // Data loaded, set loading to false
