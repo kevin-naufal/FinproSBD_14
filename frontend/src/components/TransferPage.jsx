@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PageContent } from '../Header'; // Import PageContent component
+import { Container, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, CircularProgress } from '@mui/material';
 
-const TransferPage = () => {
+const TransfersPage = () => {
   const [transfers, setTransfers] = useState([]);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true); // State for loading animation
 
   useEffect(() => {
     const fetchTransfers = async () => {
@@ -12,69 +14,63 @@ const TransferPage = () => {
         // Fetch transferred players
         const response = await axios.get('http://localhost:5000/api/transfers');
         setTransfers(response.data);
+        setLoading(false); // Data loaded, set loading to false
       } catch (error) {
         // Display error message if the request fails
         setError('Failed to fetch transfers');
+        setLoading(false); // Error occurred, set loading to false
       }
     };
 
     fetchTransfers();
   }, []);
 
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <PageContent> {/* Wrap content with PageContent */}
-      <div>
-        {error && <p>{error}</p>}
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-          <thead>
-            <tr>
-              <th style={tableHeaderStyle}>Player</th>
-              <th style={tableHeaderStyle}>Age</th>
-              <th style={tableHeaderStyle}>Market Value</th>
-              <th style={tableHeaderStyle}>Nationality</th>
-              <th style={tableHeaderStyle}>Left Club</th>
-              <th style={tableHeaderStyle}>Joined Club</th>
-              <th style={tableHeaderStyle}>Fee</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transfers.map((transfer, index) => (
-              <tr key={index} style={index % 2 === 0 ? evenRowStyle : oddRowStyle}>
-                <td style={tableCellStyle}>{transfer.player}</td>
-                <td style={tableCellStyle}>{transfer.age}</td>
-                <td style={tableCellStyle}>{transfer.market_value}</td>
-                <td style={tableCellStyle}>{transfer.nationality}</td>
-                <td style={tableCellStyle}>{transfer.left}</td>
-                <td style={tableCellStyle}>{transfer.joined}</td>
-                <td style={tableCellStyle}>{transfer.fee}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <Container maxWidth="md">
+        <Typography variant="h4" component="h2" style={{ marginBottom: '20px', textAlign: 'center' }}>
+          Transfers
+        </Typography>
+        {error && <Typography color="error">{error}</Typography>}
+        <TableContainer component={Paper} className="transfers-table border-2 border-black">
+          <Table>
+            <TableHead>
+              <TableRow className='bg-[#9DC08B]'>
+                <TableCell>Player</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Market Value</TableCell>
+                <TableCell>Nationality</TableCell>
+                <TableCell>Left Club</TableCell>
+                <TableCell>Joined Club</TableCell>
+                <TableCell>Fee</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {transfers.map((transfer, index) => (
+                <TableRow key={index} className={index % 2 === 0 ? 'bg-[#EDF1D6]' : 'bg-[#fff]'}>
+                  <TableCell>{transfer.player}</TableCell>
+                  <TableCell>{transfer.age}</TableCell>
+                  <TableCell>{transfer.market_value}</TableCell>
+                  <TableCell>{transfer.nationality}</TableCell>
+                  <TableCell>{transfer.left}</TableCell>
+                  <TableCell>{transfer.joined}</TableCell>
+                  <TableCell>{transfer.fee}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
     </PageContent>
   );
 };
 
-export default TransferPage;
-
-// Styles
-const tableHeaderStyle = {
-  background: '#333',
-  color: '#fff',
-  padding: '10px',
-  textAlign: 'left',
-};
-
-const tableCellStyle = {
-  border: '1px solid #ddd',
-  padding: '10px',
-};
-
-const evenRowStyle = {
-  background: '#f2f2f2',
-};
-
-const oddRowStyle = {
-  background: '#fff',
-};
+export default TransfersPage;

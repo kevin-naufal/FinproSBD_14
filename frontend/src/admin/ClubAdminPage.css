@@ -1,0 +1,45 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  .admin-title {
+    margin-bottom: 20px;
+    color: #3f51b5;
+  }
+  
+  .admin-table {
+    margin-top: 20px;
+  }
+  
+  .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  

@@ -56,6 +56,11 @@ const Header = () => {
     navigate("/fantasyfc");
   };
 
+  // Function to handle Transfers button click
+  const handleTransfersClick = () => {
+    navigate("/transfers");
+  };
+
   useEffect(() => {
     // Fetch the latest login session status
     const fetchLoginStatus = async () => {
@@ -138,6 +143,19 @@ const Header = () => {
           }}
         >
           FantasyFC
+        </button>
+        <button
+          onClick={handleTransfersClick}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "#fff",
+            cursor: "pointer",
+            fontSize: "16px",
+            paddingLeft: "40px",
+          }}
+        >
+          Transfers
         </button>
       </div>
       <form onSubmit={handleSearch} style={{ position: "relative" }}>

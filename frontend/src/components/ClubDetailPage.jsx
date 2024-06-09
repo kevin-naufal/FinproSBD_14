@@ -48,27 +48,27 @@ const ClubDetailPage = () => {
   return (
     <PageContent className="page-content">
       <Container maxWidth="md">
-      <Link to="/"> {/* Tambahkan Link */}
-      <Button
-        variant="outlined"
-        color="primary"
-        style={{
-          marginBottom: '20px',
-          backgroundColor: '#3f51b5', // warna sesuai dengan outline primary default
-          color: 'white',
-          borderColor: '#3f51b5', // outline color
-        }}
-        onMouseOver={(e) => {
-          e.currentTarget.style.backgroundColor = 'white';
-          e.currentTarget.style.color = '#3f51b5';
-        }}
-        onMouseOut={(e) => {
-          e.currentTarget.style.backgroundColor = '#3f51b5';
-          e.currentTarget.style.color = 'white';
-        }}
-      >
-        Kembali
-      </Button>
+        <Link to="/">
+          <Button
+            variant="outlined"
+            color="primary"
+            style={{
+              marginBottom: '20px',
+              backgroundColor: '#3f51b5', // warna sesuai dengan outline primary default
+              color: 'white',
+              borderColor: '#3f51b5', // outline color
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.backgroundColor = 'white';
+              e.currentTarget.style.color = '#3f51b5';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.backgroundColor = '#3f51b5';
+              e.currentTarget.style.color = 'white';
+            }}
+          >
+            Kembali
+          </Button>
         </Link>
         <Box textAlign="center" mb={2}>
           <Typography variant="h4" component="h2" className="club-name">
@@ -110,7 +110,11 @@ const ClubDetailPage = () => {
               {standings.map((standing, index) => (
                 <TableRow key={index} className='bg-[#EDF1D6]'>
                   <TableCell>{standing.rank}</TableCell>
-                  <TableCell>{standing.club_name}</TableCell>
+                  <TableCell>
+                  <Link to={`/clubs/${standing.club_id}`}>
+                      {standing.club_name}
+                    </Link>
+                  </TableCell>
                   <TableCell>{standing.games_played}</TableCell>
                   <TableCell>{standing.wins}</TableCell>
                   <TableCell>{standing.losses}</TableCell>

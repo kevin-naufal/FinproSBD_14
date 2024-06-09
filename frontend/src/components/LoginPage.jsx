@@ -33,6 +33,7 @@ const Login = () => {
       });
       // localStorage.setItem("hasLoggedIn", true);
       if (response.status === 200) {
+        localStorage.setItem("hasLoggedIn", true);
         setSuccessMessage("Login successful! Redirecting...");
         setTimeout(() => setRedirect(true), 2000);
       }
