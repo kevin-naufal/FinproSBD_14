@@ -161,8 +161,9 @@ router.get('/fixture/:fixture_id', async (req, res) => {
   }
 });
 
-router.get('/fixture/:fixture_id/stats', async (req, res) => {
-  const { fixture_id } = req.params;
+// Adjust the route to accept two parameters: fixture_id and club_id
+router.get('/fixture/:fixture_id/stats/:club_id', async (req, res) => {
+  const { fixture_id, club_id } = req.params;
 
   try {
     const queryResult = await pool.query(`
@@ -188,10 +189,10 @@ router.get('/fixture/:fixture_id/stats', async (req, res) => {
       JOIN 
         clubs ON player_stats.club_id = clubs.id
       WHERE 
-        player_stats.fixture_id = $1
+        player_stats.fixture_id = $1 AND player_stats.club_id = $2
       GROUP BY 
         clubs.id, clubs.name;
-    `, [fixture_id]);
+    `, [fixture_id, club_id]);
 
     res.json(queryResult.rows);
   } catch (err) {
@@ -199,6 +200,7 @@ router.get('/fixture/:fixture_id/stats', async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 });
+
 
 
 
